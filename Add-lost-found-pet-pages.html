@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add Lost Pet</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f5f5f5; margin:0; padding:20px; }
+    .container { max-width:600px; margin:auto; background:#fff; padding:20px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1);}    
+    label { display:block; margin-top:12px; font-weight:bold; }
+    input, select, textarea { width:100%; padding:10px; margin-top:5px; border:1px solid #ccc; border-radius:5px; }
+    button { margin-top:20px; padding:12px; width:100%; background:#ff9800; border:none; color:#fff; font-size:16px; border-radius:5px; cursor:pointer; }
+    button:hover { background:#e68900; }
+    .hidden { display:none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 style="margin:0 0 12px">Report a Lost or Found Pet</h2>
+    <div style="display:flex;gap:8px;margin-bottom:12px">
+      <button id="showLost" type="button" style="flex:1;padding:10px;border-radius:6px;border:1px solid #eee;background:#ffefea;">Report Lost Pet</button>
+      <button id="showFound" type="button" style="flex:1;padding:10px;border-radius:6px;border:1px solid #eee;background:#f0f8ff;">Report Found Pet</button>
+    </div>
+
+    <form id="lostPetForm">
+      <label>Pet Name *</label>
+      <input type="text" id="petName" required />
+
+      <label>Pet Type *</label>
+      <select id="petType" required>
+        <option value="">Select</option>
+        <option value="Dog">Dog</option>
+        <option value="Cat">Cat</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <div id="breedDiv" class="hidden">
+        <label>Breed *</label>
+        <select id="breed">
+        </select>
+      </div>
+
+      <label>Color *</label>
+      <select id="color" required>
+        <option value="Black">Black</option>
+        <option value="White">White</option>
+        <option value="Brown">Brown</option>
+        <option value="Golden">Golden</option>
+        <option value="Gray">Gray</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <input type="text" id="colorOther" class="hidden" placeholder="Enter custom color" />
+
+      <label>Size *</label>
+      <select id="size" required>
+        <option value="Small">Small</option>
+        <option value="Medium">Medium</option>
+        <option value="Large">Large</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <input type="text" id="sizeOther" class="hidden" placeholder="Enter custom size" />
+
+      <label>Gender *</label>
+      <select id="gender" required>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Unknown">Unknown</option>
+      </select>
+
+      <label>Date Lost *</label>
+      <input type="date" id="dateLost" required />
+
+      <label>Lost Location *</label>
+      <input type="text" id="lostLocation" required />
+
+      <label>Description *</label>
+      <textarea id="description" rows="3" required></textarea>
+
+      <label>Unique Pet Identifier (optional)</label>
+      <input type="number" id="petId" />
+
+      <label>Contact Number *</label>
+      <input type="text" id="contact" maxlength="10" required />
+
+      <label>Upload Image *</label>
+      <input type="file" id="image" accept="image/*" required />
+
+      <button type="submit">Submit Lost Pet</button>
+    </form>
+
+    <form id="foundPetForm" class="hidden">
+      <label>Pet Type *</label>
+      <select id="foundPetType" required>
+        <option value="">Select</option>
+        <option value="Dog">Dog</option>
+        <option value="Cat">Cat</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <div id="foundBreedDiv" class="hidden">
+        <label>Breed *</label>
+        <select id="foundBreed"></select>
+      </div>
+
+      <label>Color *</label>
+      <select id="foundColor" required>
+        <option value="Black">Black</option>
+        <option value="White">White</option>
+        <option value="Brown">Brown</option>
+        <option value="Golden">Golden</option>
+        <option value="Gray">Gray</option>
+        <option value="Other">Other</option>
+      </select>
+      <input type="text" id="foundColorOther" class="hidden" placeholder="Enter custom color" />
+
+      <label>Date Found *</label>
+      <input type="date" id="dateFound" required />
+
+      <label>Found Location *</label>
+      <input type="text" id="foundLocation" required />
+
+      <label>Description *</label>
+      <textarea id="foundDescription" rows="3" required></textarea>
+
+      <label>Contact Number *</label>
+      <input type="text" id="foundContact" maxlength="10" required />
+
+      <label>Upload Image *</label>
+      <input type="file" id="foundImage" accept="image/*" required />
+
+      <button type="submit">Submit Found Pet</button>
+    </form>
+
+    <div style="margin-top:14px;font-size:13px;color:#666">After submission you'll be redirected to the homepage where your listing will appear.</div>
+  </div>
+
+  <script>
+    // Tab switching
+    const showLostBtn = document.getElementById('showLost');
+    const showFoundBtn = document.getElementById('showFound');
+    const lostForm = document.getElementById('lostPetForm');
+    const foundForm = document.getElementById('foundPetForm');
+
+    function showLost(){ lostForm.classList.remove('hidden'); foundForm.classList.add('hidden'); }
+    function showFound(){ foundForm.classList.remove('hidden'); lostForm.classList.add('hidden'); }
+    showLostBtn.addEventListener('click', showLost);
+    showFoundBtn.addEventListener('click', showFound);
+
+    // Open correct form if hash present
+    if(location.hash === '#found') showFound();
+    if(location.hash === '#lost') showLost();
+
+    // Helpers for lost form
+    const petType = document.getElementById('petType');
+    const breedDiv = document.getElementById('breedDiv');
+    const breed = document.getElementById('breed');
+    const color = document.getElementById('color');
+    const colorOther = document.getElementById('colorOther');
+    const size = document.getElementById('size');
+    const sizeOther = document.getElementById('sizeOther');
+
+    petType.addEventListener('change', () => {
+      breed.innerHTML = '';
+      if (petType.value === 'Dog') {
+        breedDiv.classList.remove('hidden');
+        breed.innerHTML = '<option>Labrador</option><option>Beagle</option><option>German Shepherd</option>';
+      } else if (petType.value === 'Cat') {
+        breedDiv.classList.remove('hidden');
+        breed.innerHTML = '<option>Persian</option><option>Siamese</option><option>Bengal</option>';
+      } else {
+        breedDiv.classList.add('hidden');
+      }
+    });
+
+    color.addEventListener('change', () => colorOther.classList.toggle('hidden', color.value !== 'Other'));
+    size.addEventListener('change', () => sizeOther.classList.toggle('hidden', size.value !== 'Other'));
+
+    // Helpers for found form
+    const fType = document.getElementById('foundPetType');
+    const fBreedDiv = document.getElementById('foundBreedDiv');
+    const fBreed = document.getElementById('foundBreed');
+    const fColor = document.getElementById('foundColor');
+    const fColorOther = document.getElementById('foundColorOther');
+
+    fType.addEventListener('change', () => {
+      fBreed.innerHTML = '';
+      if (fType.value === 'Dog') {
+        fBreedDiv.classList.remove('hidden');
+        fBreed.innerHTML = '<option>Labrador</option><option>Beagle</option><option>German Shepherd</option>';
+      } else if (fType.value === 'Cat') {
+        fBreedDiv.classList.remove('hidden');
+        fBreed.innerHTML = '<option>Persian</option><option>Siamese</option><option>Bengal</option>';
+      } else {
+        fBreedDiv.classList.add('hidden');
+      }
+    });
+
+    fColor.addEventListener('change', () => fColorOther.classList.toggle('hidden', fColor.value !== 'Other'));
+
+    // Validation helper
+    function validPhone(num){ return /^[0-9]{10}$/.test(num); }
+
+    // Lost form submit
+    document.getElementById('lostPetForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const contact = document.getElementById('contact').value.trim();
+      if(!validPhone(contact)){ alert('Please enter a valid 10-digit contact number'); return; }
+
+      const file = document.getElementById('image').files[0];
+      if(!file){ alert('Please upload an image'); return; }
+
+      const reader = new FileReader();
+      reader.onload = function(){
+        const pet = {
+          name: document.getElementById('petName').value.trim(),
+          type: petType.value,
+          breed: (breedDiv.classList.contains('hidden') ? '' : breed.value),
+          color: (color.value === 'Other' ? document.getElementById('colorOther').value.trim() : color.value),
+          size: (size.value === 'Other' ? document.getElementById('sizeOther').value.trim() : size.value),
+          gender: document.getElementById('gender').value,
+          dateLost: document.getElementById('dateLost').value,
+          lostLocation: document.getElementById('lostLocation').value.trim(),
+          description: document.getElementById('description').value.trim(),
+          petId: document.getElementById('petId').value.trim(),
+          contact,
+          image: reader.result
+        };
+        const arr = JSON.parse(localStorage.getItem('lostPets')) || [];
+        arr.push(pet);
+        localStorage.setItem('lostPets', JSON.stringify(arr));
+        alert('Lost pet added successfully!');
+        window.location.href = 'Lost-pets-landing-page.html';
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Found form submit
+    document.getElementById('foundPetForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const contact = document.getElementById('foundContact').value.trim();
+      if(!validPhone(contact)){ alert('Please enter a valid 10-digit contact number'); return; }
+
+      const file = document.getElementById('foundImage').files[0];
+      if(!file){ alert('Please upload an image'); return; }
+
+      const reader = new FileReader();
+      reader.onload = function(){
+        const pet = {
+          type: fType.value,
+          breed: (fBreedDiv.classList.contains('hidden') ? '' : fBreed.value),
+          color: (fColor.value === 'Other' ? document.getElementById('foundColorOther').value.trim() : fColor.value),
+          dateFound: document.getElementById('dateFound').value,
+          foundLocation: document.getElementById('foundLocation').value.trim(),
+          description: document.getElementById('foundDescription').value.trim(),
+          contact,
+          image: reader.result
+        };
+        const arr = JSON.parse(localStorage.getItem('foundPets')) || [];
+        arr.push(pet);
+        localStorage.setItem('foundPets', JSON.stringify(arr));
+        alert('Found pet added successfully!');
+        window.location.href = 'Lost-pets-landing-page.html';
+      };
+      reader.readAsDataURL(file);
+    });
+  </script>
+</body>
+</html>

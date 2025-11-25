@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FindMyFurry — Reunite Lost Pets</title>
+  <style>
+    :root{
+      --accent:#FF7A59;
+      --accent-2:#FFB48F;
+      --muted:#6B7280;
+      --bg:#FBFBFD;
+      --card:#FFFFFF;
+      --radius:14px;
+      --max-width:1100px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,var(--bg),#fff);color:#0f172a;line-height:1.45}
+    .container{max-width:var(--max-width);margin:0 auto;padding:28px}
+
+    /* Header */
+    header{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
+    nav a{margin-left:18px;text-decoration:none;color:var(--muted);font-weight:600}
+    nav a.cta{background:transparent;border:1px solid transparent;padding:8px 12px;border-radius:10px}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:32px;align-items:center;padding:32px 0}
+    .hero h1{font-size:34px;margin:0 0 12px}
+    .hero p{color:var(--muted);margin:0 0 18px}
+    .hero .actions{display:flex;gap:12px}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:12px;font-weight:700;text-decoration:none;cursor:pointer}
+    .btn-primary{background:var(--accent);color:#fff;box-shadow:0 6px 18px rgba(255,122,89,0.18)}
+    .btn-outline{background:transparent;border:2px solid var(--accent);color:var(--accent)}
+    .hero-illustration{background:linear-gradient(180deg,#fff, #fff);border-radius:18px;padding:14px;box-shadow:0 8px 30px rgba(15,23,42,0.06)}
+    .hero-illustration img{width:100%;height:100%;object-fit:cover;border-radius:12px}
+
+    /* Sections */
+    section{margin:34px 0}
+    .section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .section-head h2{margin:0}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{background:var(--card);border-radius:12px;padding:12px;box-shadow:0 6px 18px rgba(12,17,43,0.04);display:flex;gap:12px}
+    .card img{width:110px;height:110px;border-radius:10px;object-fit:cover}
+    .card .meta{flex:1}
+    .meta h3{margin:0 0 6px;font-size:16px}
+    .meta .sub{color:var(--muted);font-size:13px;margin-bottom:8px}
+    .meta p{margin:0;color:#111827;font-size:14px;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis}
+
+    /* limit description to 2 lines */
+    .two-line{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+    /* testimonials */
+    .testimonials{display:flex;gap:12px}
+    .testimonial{background:var(--card);padding:14px;border-radius:12px;box-shadow:0 6px 18px rgba(12,17,43,0.04);flex:1}
+    .testimonial .who{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+    .avatar{width:40px;height:40px;border-radius:50%;object-fit:cover}
+
+    /* about + footer */
+    .about{background:linear-gradient(90deg, rgba(255,122,89,0.06), rgba(255,180,143,0.04));padding:18px;border-radius:12px}
+    footer{border-top:1px solid #eef2f7;padding:20px 0;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+    .socials img{width:20px;margin-left:8px}
+
+    /* responsiveness */
+    @media (max-width:1000px){.hero{grid-template-columns:1fr 320px}.cards{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:720px){.container{padding:18px}.hero{grid-template-columns:1fr;gap:18px}.hero-illustration{order:2}.cards{grid-template-columns:1fr}.testimonials{flex-direction:column}nav a{display:none}header{justify-content:space-between}}
+
+    /* small helpers */
+    .muted{color:var(--muted)}
+    .pill{display:inline-block;background:#F9FAFB;padding:6px 10px;border-radius:999px;font-weight:600}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">FM</div>
+        <div>
+          <div style="font-weight:700">FindMyFurry</div>
+          <div style="font-size:12px;color:var(--muted)">Reuniting pets & people</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#">Home</a>
+        <a href="#lost">Lost Pets</a>
+        <a href="#found">Found Pets</a>
+        <a href="Add-lost-found-pet-pages.html#lost">Add Pet</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" aria-label="Hero banner">
+      <div>
+        <h1>Find Your Furry Friend — Help Reunite Lost Pets</h1>
+        <p>Search recently reported lost or found pets, post a listing, and join our local community to bring pets home.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#lost">🐾 Lost Pet</a>
+          <a class="btn btn-outline" href="#found">🔎 Found Pet</a>
+        </div>
+        <div style="margin-top:18px;display:flex;gap:10px;align-items:center">
+          <div class="pill">Local & Verified</div>
+          <div class="pill">Free to use</div>
+        </div>
+      </div>
+
+      <div class="hero-illustration" role="img" aria-label="cute pets banner">
+        <img src="https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=1200&auto=format&fit=crop&crop=faces" alt="pets banner">
+      </div>
+    </section>
+
+    <!-- LOST PETS -->
+    <section id="lost">
+      <div class="section-head">
+        <h2>Recently Reported Lost Pets</h2>
+        <a href="#" class="muted">View all</a>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?q=80&w=800&auto=format&fit=crop&crop=faces" alt="Bella the dog">
+          <div class="meta">
+            <h3>Bella <span style="font-weight:600;color:var(--muted);font-size:13px">• Golden Retriever</span></h3>
+            <div class="sub">Location: Jubilee Hills, Hyderabad</div>
+            <p class="two-line">Last seen near the park by the fountain. Very friendly, has a blue collar with a silver tag. Responds to "Bella" and treats.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?q=80&w=800&auto=format&fit=crop&crop=faces" alt="Milo the cat">
+          <div class="meta">
+            <h3>Milo <span style="font-weight:600;color:var(--muted);font-size:13px">• Tabby Cat</span></h3>
+            <div class="sub">Location: Banjara Hills, Hyderabad</div>
+            <p class="two-line">Small tabby with a white spot on chest. Timid around strangers but vocal. Last seen at dusk near the lane behind the bakery.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop&crop=faces" alt="Rocky the parrot">
+          <div class="meta">
+            <h3>Rocky <span style="font-weight:600;color:var(--muted);font-size:13px">• Parrot</span></h3>
+            <div class="sub">Location: Madhapur, Hyderabad</div>
+            <p class="two-line">Green parrot that says a few words. May be on top of buildings. Please approach slowly — he can be skittish.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- FOUND PETS -->
+    <section id="found">
+      <div class="section-head">
+        <h2>Recently Found Pets</h2>
+        <a href="#" class="muted">Report found pet</a>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1507149833265-60c372daea22?q=80&w=800&auto=format&fit=crop&crop=faces" alt="found dog">
+          <div class="meta">
+            <h3>Unknown Dog <span style="font-weight:600;color:var(--muted);font-size:13px">• Mixed Breed</span></h3>
+            <div class="sub">Location: Kondapur, Hyderabad</div>
+            <p class="two-line">Found wandering near the market. Friendly and appears to be well-fed. No collar. Taken to a volunteer shelter.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=800&auto=format&fit=crop&crop=faces" alt="found cat">
+          <div class="meta">
+            <h3>Unknown Cat <span style="font-weight:600;color:var(--muted);font-size:13px">• Himalayan mix</span></h3>
+            <div class="sub">Location: K.P. Road, Hyderabad</div>
+            <p class="two-line">White & grey longhaired cat found near an apartment complex. Calm and affectionate. Might be indoor-only pet.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=800&auto=format&fit=crop&crop=faces" alt="found rabbit">
+          <div class="meta">
+            <h3>Small Rabbit <span style="font-weight:600;color:var(--muted);font-size:13px">• Lop</span></h3>
+            <div class="sub">Location: Near Botanical Gardens</div>
+            <p class="two-line">Tender and clean fur; seems handled before. Found in the evening near the cafe. Keeping it safe at volunteer home.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section>
+      <div class="section-head">
+        <h2>What People Say</h2>
+      </div>
+      <div class="testimonials">
+        <div class="testimonial">
+          <div class="who"><img class="avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="user 1"><div><strong>Neha R.</strong><div class="muted" style="font-size:12px">Hyderabad</div></div></div>
+          <div>"I posted about my lost pup and within two days a neighbour contacted me — we were reunited! The platform is easy to use."</div>
+        </div>
+
+        <div class="testimonial">
+          <div class="who"><img class="avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="user 2"><div><strong>Ravi K.</strong><div class="muted" style="font-size:12px">Secunderabad</div></div></div>
+          <div>"Great community. Volunteers helped hold a found pet until we claimed her. Highly recommended."</div>
+        </div>
+
+        <div class="testimonial">
+          <div class="who"><img class="avatar" src="https://randomuser.me/api/portraits/women/65.jpg" alt="user 3"><div><strong>Sana P.</strong><div class="muted" style="font-size:12px">Banjara Hills</div></div></div>
+          <div>"Clean design and clear information — made me trust the posts and respond quickly."</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="about">
+        <h3>About Us</h3>
+        <p style="margin-top:6px;color:var(--muted)">FindMyFurry is a community-driven platform to help reunite lost pets with their owners. We provide an easy way to post sightings, verify reports, and connect neighbours and volunteers to bring pets home safely.</p>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contact">
+      <div>
+        <div style="font-weight:700">FindMyFurry</div>
+        <div style="font-size:13px;color:var(--muted)">© 2025 FindMyFurry — All rights reserved</div>
+        <div style="margin-top:10px;font-size:13px">
+          <div><strong>Email:</strong> <a href="mailto:help@findmyfurry.example" style="color:var(--accent);text-decoration:none">help@findmyfurry.example</a></div>
+          <div style="margin-top:4px"><strong>Phone:</strong> <a href="tel:+919876543210" style="color:var(--accent);text-decoration:none">+91 98765 43210</a></div>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div style="margin-bottom:10px">
+          <a href="https://instagram.com/findmyfurry" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;margin-right:12px">📷 Instagram</a>
+          <a href="https://wa.me/919876543210" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;margin-right:12px">💬 WhatsApp</a>
+          <a href="#contact" style="color:var(--accent);text-decoration:none;margin-right:12px">Contact</a>
+          <a href="#" style="color:var(--accent);text-decoration:none">Privacy</a>
+        </div>
+        <div class="socials">
+          <a href="https://instagram.com/findmyfurry" target="_blank" rel="noopener" title="Instagram"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4f7.svg" alt="instagram" width="18" style="margin-right:6px"></a>
+          <a href="https://wa.me/919876543210" target="_blank" rel="noopener" title="WhatsApp"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4f2.svg" alt="whatsapp" width="18"></a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Small JS helpers: make description exceed 2 lines show ellipsis (handled by CSS).
+    // Add click handlers for hero buttons to smoothly scroll to sections
+    document.querySelectorAll('.btn').forEach(b=>{
+      b.addEventListener('click', e=>{
+        const href = b.getAttribute('href');
+        if(href && href.startsWith('#')){
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+        }
+      })
+    })
+  </script>
+</body>
+</html>
